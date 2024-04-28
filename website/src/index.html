@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./node_modules/apexcharts/dist/apexcharts.css">
+  </head>
+  <body class="dark:bg-gray-800">
+
+    <!-- Stats -->
+    <div class="dark:bg-gray-800 py-14 sm:py-28">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+          <div class="mx-auto flex max-w-xs flex-col gap-y-4" id="Benign">
+            <dt class="text-base leading-7 dark:text-gray-400">Benign conexions</dt>
+            <dd class="order-first text-3xl font-semibold tracking-tight dark:text-white sm:text-5xl">44 million</dd>
+          </div>
+          <div class="mx-auto flex max-w-xs flex-col gap-y-4" id="Volume">
+            <dt class="text-base leading-7 dark:text-gray-400">Volume attack conexions</dt>
+            <dd class="order-first text-3xl font-semibold tracking-tight dark:text-white sm:text-5xl">$119 trillion</dd>
+          </div>
+          <div class="mx-auto flex max-w-xs flex-col gap-y-4" id="Application">
+            <dt class="text-base leading-7 dark:text-gray-400">Application attack conexions</dt>
+            <dd class="order-first text-3xl font-semibold tracking-tight dark:text-white sm:text-5xl">46,000</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+          
+    <!-- Chart -->
+    <div class="flex justify-center items-center py-14 sm:py-22">
+      <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+  
+          <div class="flex justify-between items-start w-full">
+              <div class="flex-col items-center">
+                <div class="flex items-center mb-1">
+                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">Conexions distribution</h5>
+                    <div data-popover id="chart-info" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+                </div>
+              </div>
+              <div id="dateRangeDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 lg:w-96 dark:bg-gray-700 dark:divide-gray-600">
+                  <div class="p-3" aria-labelledby="dateRangeButton">
+                    <div date-rangepicker datepicker-autohide class="flex items-center">
+                        <div class="relative">
+                          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                              </svg>
+                          </div>
+                          <input name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Start date">
+                        </div>
+                        <span class="mx-2 text-gray-500 dark:text-gray-400">to</span>
+                        <div class="relative">
+                          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                              </svg>
+                          </div>
+                          <input name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="End date">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        
+          <!-- Line Chart -->
+          <div class="py-6" id="pie-chart"></div>
+          <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+          </div>
+        </div>
+        
+    </div>
+
+    <!-- Table -->
+    <div class="relative overflow-x-auto py-14 sm:py-22">
+      <table
+        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        id="product-table"
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">Destination Port</th>
+            <th scope="col" class="px-6 py-3">Fwd Packet Length Mean</th>
+            <th scope="col" class="px-6 py-3">Fwd Packet Length Min</th>
+            <th scope="col" class="px-6 py-3">Avg Fwd Segment Size</th>
+            <th scope="col" class="px-6 py-3">Min Packet Length</th>
+            <th scope="col" class="px-6 py-3">Bwd Packets/s</th>
+            <th scope="col" class="px-6 py-3">Total Backward Packets</th>
+            <th scope="col" class="px-6 py-3">Init_Win_bytes_forward</th>
+            <th scope="col" class="px-6 py-3">Subflow Bwd Bytes</th>
+            <th scope="col" class="px-6 py-3">Subflow Bwd Packets</th>
+            <th scope="col" class="px-6 py-3">Packet Length Mean</th>
+            <th scope="col" class="px-6 py-3">Bwd IAT Total</th>
+            <th scope="col" class="px-6 py-3">Bwd IAT Max</th>
+            <th scope="col" class="px-6 py-3">Avg Bwd Segment Size</th>
+            <th scope="col" class="px-6 py-3">Bwd Header Length</th>
+            <th scope="col" class="px-6 py-3">Volume_Based_Attack</th>
+            <th scope="col" class="px-6 py-3">Application_Layer_Attack</th>
+            <th scope="col" class="px-6 py-3">Benign</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              lorem"
+            </th>
+            <td class="px-6 py-4">lorem</td>
+            <td class="px-6 py-4">lorem</td>
+            <td class="px-6 py-4">$lorem</td>
+          </tr>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              lorem
+            </th>
+            <td class="px-6 py-4">t</td>
+            <td class="px-6 py-4">t PC</td>
+            <td class="px-6 py-4">$t</td>
+          </tr>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              t
+            </th>
+            <td class="px-6 py-4">t</td>
+            <td class="px-6 py-4">t</td>
+            <td class="px-6 py-4">$t</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="./update.js"></script>
+  </body>
+</html>
